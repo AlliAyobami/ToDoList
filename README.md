@@ -62,8 +62,9 @@ Instructions:
 
 1. Kindly use **api/v1/todo/create** to create a to do list
 2. Kindly use **api/v1/todo/user/list** to get all to do list created by a user
-3. Kindly use **api/v1/todo/{}** to get single to do list
-4. Kindly use **api/v1/todo/update/{}** to update single todo.
+3. Kindly use **api/v1/todo/{id}** to get single to do list
+4. Kindly use **api/v1/todo/update/{id}** to update single todo.
+5. Kindly use **api/v1/todo/delete/{id}** to delete single todo.
 
 ''''''CREATE TODO''''''''''''''''''
 "name": "toDo.store",
@@ -81,20 +82,13 @@ Instructions:
 "name": "Auth VERIFY Email",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/user/list",
 "method": "GET",
-"bodyParams":
-{
-},
 \*\*Bearer Auth required!
 
 ''''''GET A TODO LIST''''''''''''''''''
 "name": "toDo.store",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/3"",
 "method": "GET",
-"bodyParams":
-{
-"name":"Singing",
-"status":"ongoing"
-},
+\*\*Bearer Auth required!
 
 ''''''UPDATE A TODO LIST''''''''''''''''''
 "name": "toDo.store",
@@ -105,13 +99,62 @@ Instructions:
 "name":"Singing",
 "status":"ongoing"
 },
+\*\*Bearer Auth required!
 
 ''''''DELETE A TODO LIST''''''''''''''''''
 "name": "Auth Logout",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/2",
 "method": "DELETE",
+\*\*Bearer Auth required!
+
+**TASK ENDPOINTS**
+
+Instructions:
+
+1. Kindly use **api/v1/todo/{id}/task** to create a todo task
+2. Kindly use **api/v1/todo/{id}/task** to get all todo tasks
+3. Kindly use **api/v1/task/{id}** to get single to do task
+4. Kindly use **api/v1/task/{}/timeline** get task interval.
+5. Kindly use **api/v1/todo/delete/{}** to delete single todo.
+
+''''''CREATE TODO TASK''''''''''''''''''
+"name": "toDo.store",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/7/task",
+"method": "POST",
 "bodyParams":
 {
-"email":"ayobamialli29@gmail.com",
-"password":"theisgreat"
+"description":"Cooking",
+"due_date":"2023-12-28T11:33:09.20",
+"status":"pending"
+"priority":"high"
 },
+\*\*Bearer Auth required!
+
+''''''GET ALL TO DO TASKS''''''''''''''''''
+"name": "Auth VERIFY Email",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/{id}/task",
+"method": "GET",
+\*\*Bearer Auth required!
+
+''''''GET A TODO LIST''''''''''''''''''
+"name": "toDo.store",
+"api endpoint": "http://127.0.0.1:8000/api/v1/task/9"",
+"method": "GET",
+\*\*Bearer Auth required!
+
+''''''UPDATE A TODO LIST''''''''''''''''''
+"name": "toDo.store",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/update/1",
+"method": "PUT",
+"bodyParams":
+{
+"name":"Singing",
+"status":"ongoing"
+},
+\*\*Bearer Auth required!
+
+''''''DELETE A TODO LIST''''''''''''''''''
+"name": "Auth Logout",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/2",
+"method": "DELETE",
+\*\*Bearer Auth required!
