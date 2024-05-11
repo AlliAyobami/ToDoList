@@ -3,7 +3,7 @@
 In line with the Task: Build a RESTful API for a To-Do List Application. \*_INSTALLATION_
 
 1. Kindly clone this repo
-2. You can use this in XAMMP, WAMP or DOCKER. (recommend Xammp)
+2. You can use this in XAMMP, WAMP or DOCKER. (recommend Xammp), requires php 8.2, mysql
 3. Run php artisan migrate
 4. You can follow the spec below or make use of http://127.0.0.1:8000/docs
 
@@ -80,6 +80,11 @@ Instructions:
 "status":"pending"
 },
 \*\*Bearer Auth required!
+Param{
+name: string
+due_date: datetime
+status: enum(pending, ongoing, completed)
+}
 
 ''''''GET USER TO DO LIST''''''''''''''''''
 "name": "toDo.list",
@@ -89,13 +94,13 @@ Instructions:
 
 ''''''GET A TODO LIST''''''''''''''''''
 "name": "toDo.show",
-"api endpoint": "http://127.0.0.1:8000/api/v1/todo/3"",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/{id}"",
 "method": "GET",
 \*\*Bearer Auth required!
 
 ''''''UPDATE A TODO LIST''''''''''''''''''
 "name": "toDo.update",
-"api endpoint": "http://127.0.0.1:8000/api/v1/todo/update/1",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/update/{id}",
 "method": "PUT",
 "bodyParams":
 {
@@ -103,10 +108,15 @@ Instructions:
 "status":"ongoing"
 },
 \*\*Bearer Auth required!
+Param{
+name: string
+due_date: datetime
+status: enum(pending, ongoing, completed)
+}
 
 ''''''DELETE A TODO LIST''''''''''''''''''
 "name": "toDo.delete",
-"api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/2",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/{id}",
 "method": "DELETE",
 \*\*Bearer Auth required!
 
@@ -118,12 +128,12 @@ Instructions:
 2. Kindly use **api/v1/todo/{id}/task** to get all todo tasks
 3. Kindly use **api/v1/task/{id}** to get single to do task
 4. Kindly use **task/{id}/update** get task interval.
-5. Kindly use **api/v1/task/{}/timeline** get task interval.
-6. Kindly use **api/v1/task/{}/delete** to delete single todo.
+5. Kindly use **api/v1/task/{id}/timeline** get task interval.
+6. Kindly use **api/v1/task/{id}/delete** to delete single todo.
 
 ''''''CREATE TODO TASK''''''''''''''''''
 "name": "task.store",
-"api endpoint": "http://127.0.0.1:8000/api/v1/todo/7/task",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/{id}/task",
 "method": "POST",
 "bodyParams":
 {
@@ -133,6 +143,12 @@ Instructions:
 "priority":"high"
 },
 \*\*Bearer Auth required!
+Param{
+description: string
+due_date: datetime
+status: enum(pending, ongoing, completed)
+priority: enum(critical, high, medium, low, planning)
+}
 
 ''''''GET ALL TO DO TASKS''''''''''''''''''
 "name": "task.lists",
@@ -158,11 +174,17 @@ Instructions:
 "priority":"high"
 },
 \*\*Bearer Auth required!
+Param{
+description: string
+due_date: datetime
+status: enum(pending, ongoing, completed)
+priority: enum(critical, high, medium, low, planning)
+}
 
 ''''''TIMELINE A TASK INTERVAL''''''''''''''''''
 "name": "task.interval",
 "api endpoint": "http://127.0.0.1:8000/api/v1/task/{}/timeline",
-"method": "PUT",
+"method": "GET",
 \*\*Bearer Auth required!
 
 ''''''DELETE A TASK''''''''''''''''''
