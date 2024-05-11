@@ -114,11 +114,12 @@ Instructions:
 1. Kindly use **api/v1/todo/{id}/task** to create a todo task
 2. Kindly use **api/v1/todo/{id}/task** to get all todo tasks
 3. Kindly use **api/v1/task/{id}** to get single to do task
-4. Kindly use **api/v1/task/{}/timeline** get task interval.
-5. Kindly use **api/v1/todo/delete/{}** to delete single todo.
+4. Kindly use **task/{id}/update** get task interval.
+5. Kindly use **api/v1/task/{}/timeline** get task interval.
+6. Kindly use **api/v1/task/{}/delete** to delete single todo.
 
 ''''''CREATE TODO TASK''''''''''''''''''
-"name": "toDo.store",
+"name": "task.store",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/7/task",
 "method": "POST",
 "bodyParams":
@@ -131,30 +132,38 @@ Instructions:
 \*\*Bearer Auth required!
 
 ''''''GET ALL TO DO TASKS''''''''''''''''''
-"name": "Auth VERIFY Email",
+"name": "task.lists",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/{id}/task",
 "method": "GET",
 \*\*Bearer Auth required!
 
 ''''''GET A TODO LIST''''''''''''''''''
-"name": "toDo.store",
-"api endpoint": "http://127.0.0.1:8000/api/v1/task/9"",
+"name": "task.show",
+"api endpoint": "http://127.0.0.1:8000/api/v1/task/{id}"",
 "method": "GET",
 \*\*Bearer Auth required!
 
-''''''UPDATE A TODO LIST''''''''''''''''''
-"name": "toDo.store",
-"api endpoint": "http://127.0.0.1:8000/api/v1/todo/update/1",
+''''''UPDATE A TASK INTERVAL''''''''''''''''''
+"name": "task.update",
+"api endpoint": "http://127.0.0.1:8000/task/{}/update",
 "method": "PUT",
 "bodyParams":
 {
-"name":"Singing",
-"status":"ongoing"
+"description":"Cooking",
+"due_date":"2023-12-28T11:33:09.20",
+"status":"pending"
+"priority":"high"
 },
 \*\*Bearer Auth required!
 
-''''''DELETE A TODO LIST''''''''''''''''''
-"name": "Auth Logout",
-"api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/2",
+''''''TIMELINE A TASK INTERVAL''''''''''''''''''
+"name": "task.interval",
+"api endpoint": "http://127.0.0.1:8000/api/v1/task/{}/timeline",
+"method": "PUT",
+\*\*Bearer Auth required!
+
+''''''DELETE A TASK''''''''''''''''''
+"name": "task.delete",
+"api endpoint": "http://127.0.0.1:8000/api/v1/task/{}/delete",
 "method": "DELETE",
 \*\*Bearer Auth required!
