@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ## About This To Do
 
 In line with the Task: Build a RESTful API for a To-Do List Application.
@@ -14,7 +12,7 @@ Instructions:
 4. Kindly use **api/v1/auth/logout** to log a user out.
 
 ''''''REGISTER''''''''''''''''''
-"name": "Auth Register",
+"name": "users.register",
 "api endpoint": "http://127.0.0.1:8000/api/v1/auth/register",
 "method": "POST",
 "bodyParams":
@@ -27,7 +25,7 @@ Instructions:
 },
 
 ''''''VERIFY EMAIL''''''''''''''''''
-"name": "Auth VERIFY Email",
+"name": "users.verifyUserEmail",
 "api endpoint": "http://127.0.0.1:8000/api/v1/auth/verify-user-email",
 "method": "POST",
 "bodyParams":
@@ -37,7 +35,7 @@ Instructions:
 },
 
 ''''''LOGIN''''''''''''''''''
-"name": "Auth Login",
+"name": "users.login",
 "api endpoint": "http://127.0.0.1:8000/api/v1/auth/login",
 "method": "POST",
 "bodyParams":
@@ -47,7 +45,7 @@ Instructions:
 },
 
 ''''''LOGOUT''''''''''''''''''
-"name": "Auth Logout",
+"name": "users.logout",
 "api endpoint": "http://127.0.0.1:8000/api/v1/auth/logout",
 "method": "GET",
 "bodyParams":
@@ -79,19 +77,19 @@ Instructions:
 \*\*Bearer Auth required!
 
 ''''''GET USER TO DO LIST''''''''''''''''''
-"name": "Auth VERIFY Email",
+"name": "toDo.list",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/user/list",
 "method": "GET",
 \*\*Bearer Auth required!
 
 ''''''GET A TODO LIST''''''''''''''''''
-"name": "toDo.store",
+"name": "toDo.show",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/3"",
 "method": "GET",
 \*\*Bearer Auth required!
 
 ''''''UPDATE A TODO LIST''''''''''''''''''
-"name": "toDo.store",
+"name": "toDo.update",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/update/1",
 "method": "PUT",
 "bodyParams":
@@ -102,7 +100,7 @@ Instructions:
 \*\*Bearer Auth required!
 
 ''''''DELETE A TODO LIST''''''''''''''''''
-"name": "Auth Logout",
+"name": "toDo.delete",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/2",
 "method": "DELETE",
 \*\*Bearer Auth required!
