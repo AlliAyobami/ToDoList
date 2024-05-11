@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## About This To Do
 
 In line with the Task: Build a RESTful API for a To-Do List Application.
@@ -103,3 +104,6 @@ Instructions:
 "email":"ayobamialli29@gmail.com",
 "password":"theisgreat"
 },
+=======
+
+>>>>>>> aa8bcbd1192a7aac82b0b25638c5aa8bf20c96b9
