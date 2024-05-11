@@ -59,9 +59,9 @@ Instructions:
 Instructions:
 
 1. Kindly use **api/v1/todo/create** to create a to do list
-2. Kindly use **api/v1/auth/verify-user-email** to verify user
-3. Kindly use **api/v1/auth/login** to login a user and generate a bearer token
-4. Kindly use **api/v1/auth/logout** to log a user out.
+2. Kindly use **api/v1/todo/user/list** to get all to do list created by a user
+3. Kindly use **api/v1/todo/{}** to get single to do list
+4. Kindly use **api/v1/todo/update/{}** to update single todo.
 
 ''''''CREATE TODO''''''''''''''''''
 "name": "toDo.store",
