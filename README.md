@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 ## About This To Do
 
 In line with the Task: Build a RESTful API for a To-Do List Application.
@@ -79,31 +80,38 @@ Instructions:
 ''''''GET USER TO DO LIST''''''''''''''''''
 "name": "Auth VERIFY Email",
 "api endpoint": "http://127.0.0.1:8000/api/v1/todo/user/list",
-"method": "POST",
+"method": "GET",
 "bodyParams":
 {
 },
 \*\*Bearer Auth required!
 
-''''''LOGIN''''''''''''''''''
+''''''GET A TODO LIST''''''''''''''''''
 "name": "toDo.store",
-"api endpoint": "http://127.0.0.1:8000/api/v1/auth/login",
-"method": "POST",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/3"",
+"method": "GET",
 "bodyParams":
 {
-"email":"ayobamialli29@gmail.com",
-"password":"thisisgreat"
+"name":"Singing",
+"status":"ongoing"
 },
 
-''''''LOGOUT''''''''''''''''''
+''''''UPDATE A TODO LIST''''''''''''''''''
+"name": "toDo.store",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/update/1",
+"method": "PUT",
+"bodyParams":
+{
+"name":"Singing",
+"status":"ongoing"
+},
+
+''''''DELETE A TODO LIST''''''''''''''''''
 "name": "Auth Logout",
-"api endpoint": "http://127.0.0.1:8000/api/v1/auth/logout",
-"method": "GET",
+"api endpoint": "http://127.0.0.1:8000/api/v1/todo/delete/2",
+"method": "DELETE",
 "bodyParams":
 {
 "email":"ayobamialli29@gmail.com",
 "password":"theisgreat"
 },
-=======
-
->>>>>>> aa8bcbd1192a7aac82b0b25638c5aa8bf20c96b9
