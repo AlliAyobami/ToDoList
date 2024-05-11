@@ -1,6 +1,11 @@
 ## About This To Do
 
-In line with the Task: Build a RESTful API for a To-Do List Application.
+In line with the Task: Build a RESTful API for a To-Do List Application. \*_INSTALLATION_
+
+1. Kindly clone this repo
+2. You can use this in XAMMP, WAMP or DOCKER. (recommend Xammp)
+3. Run php artisan migrate
+4. You can follow the spec below or make use of http://127.0.0.1:8000/docs
 
 **USER AUTH ENDPOINTS**
 
