@@ -156,7 +156,7 @@ priority: enum(critical, high, medium, low, planning)
 "method": "GET",
 \*\*Bearer Auth required!
 
-''''''GET A TODO LIST''''''''''''''''''
+''''''GET A TASK''''''''''''''''''
 "name": "task.show",
 "api endpoint": "http://127.0.0.1:8000/api/v1/task/{id}"",
 "method": "GET",

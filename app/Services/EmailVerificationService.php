@@ -30,7 +30,7 @@ class EmailVerificationService
   }
 
    /**
-  * Verify user Token 
+  * Verify user Token
   */
 
   public function verifyToken(string $email, string $token)
@@ -59,7 +59,7 @@ class EmailVerificationService
   }
 
   /**
-   * Check if User have already been  verified 
+   * Check if User have already been  verified
    */
   public function checkIfEmailIsVerified($user){
     if($user->email_verified_at){
@@ -75,7 +75,7 @@ class EmailVerificationService
  * Verify Email
  */
     public function verifyEmail(string $email, string $token){
-        $user = User::where('email', $email)->first(); 
+        $user = User::where('email', $email)->first();
         if (!$user){
             response()->json([
                 'status' => 'failed',
@@ -100,7 +100,7 @@ class EmailVerificationService
         }
 
   /**
-   * Resend Link 
+   * Resend Link
    */
   public function resendLink($email){
     $user = User::where("email", $email)->first();
@@ -112,15 +112,15 @@ class EmailVerificationService
             'status' => 'failed',
             'message' => 'User not found'
         ]
-        ); 
+        );
     }
 }
 
 /**
-   * Resend Verification Link 
+   * Resend Verification Link
    */
   public function resendEmailVerificationLink(ResendEmailVerificationRequest $request){
      return $this->service->resendLink($user);
 }
-    
+
 }
