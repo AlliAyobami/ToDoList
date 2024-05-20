@@ -1,44 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
+use DomainException;
+use Mezzio\ProblemDetails\Exception\CommonProblemDetailsExceptionTrait;
+use Mezzio\ProblemDetails\Exception\ProblemDetailsExceptionInterface;
 
-class TaskException extends Exception
+class TaskException extends DomainException implements ProblemDetailsExceptionInterface
 {
-    /**
-     * Render the exception as an HTTP response.
-     * @return JsonResponse
-     */
-    public function render(Request $request): Response
+    use CommonProblemDetailsExceptionTrait;
+    const TYPE = 'toDoMTN';
+
+    public static function notFound(string $coy): self
     {
-        //
+        $detail = 'The task you are looking for does not exist: ' . $coy;
+        $e = new self($detail);
+        $e->status = 404;
+        $e->type   = self::TYPE;
+        $e->title  = 'Task not found';
+        $e->detail = $detail;
+
+        return $e;
     }
 
-    /**
-     * Render the exception as an HTTP response.
-     * @return JsonResponse
-     */
-    public static function invalid(): JsonResponse
+    public static function invalid(string $detail): self
     {
-        return new JsonResponse([
-            'errors' => [
-                'message' => 'Invalid Request'
-            ]], 400);
-    }
+        $e = new self($detail);
+        $e->status = 401;
+        $e->type   = self::TYPE;
+        $e->title  = 'Invalid Task';
+        $e->detail = $detail;
 
-    /**
-     * Render the exception as an HTTP response.
-     * @return JsonResponse
-     */
-    public static function notFound(): JsonResponse
-    {
-        return new JsonResponse([
-            'errors' => [
-                'message' => 'Not Found'
-            ]], 404);
+        return $e;
     }
 }

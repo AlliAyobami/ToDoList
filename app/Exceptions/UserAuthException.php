@@ -1,27 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
+use DomainException;
+use Mezzio\ProblemDetails\Exception\CommonProblemDetailsExceptionTrait;
+use Mezzio\ProblemDetails\Exception\ProblemDetailsExceptionInterface;
 
-class UserAuthException extends Exception
+class UserAuthException extends DomainException implements ProblemDetailsExceptionInterface
 {
-    /**
-     * Render the exception as an HTTP response.
-     */
-    public function render(Request $request): Response
-    {
-        //
-    }
+    use CommonProblemDetailsExceptionTrait;
+    const TYPE = 'toDoMTN';
 
-    // public static function duplicateEntry($request): Response
-    // {
-    //     return new JsonResponse([
-    //         'errors' => [
-    //             'message' => $this->getMessage()
-    //         ]], $this->code);
-    // }
+    public static function invalid(): self
+    {
+        $detail = sprintf(
+            'Invalid User Registration Details'
+        );
+        $e = new self($detail);
+        $e->status = 417;
+        $e->type   = self::TYPE;
+        $e->title  = 'Invalid User Details';
+        $e->detail = $detail;
+
+        return $e;
+    }
 }

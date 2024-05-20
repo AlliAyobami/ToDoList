@@ -1,36 +1,40 @@
 <?php
 
 declare(strict_types=1);
-
-namespace App\Exceptions;
+namespace App\Domain\Exception;
 
 use DomainException;
 use Mezzio\ProblemDetails\Exception\CommonProblemDetailsExceptionTrait;
 use Mezzio\ProblemDetails\Exception\ProblemDetailsExceptionInterface;
 
-class ToDoException extends DomainException implements ProblemDetailsExceptionInterface
+class TokenException extends DomainException implements ProblemDetailsExceptionInterface
 {
     use CommonProblemDetailsExceptionTrait;
     const TYPE = 'toDoMTN';
 
-    public static function notFound(string $coy): self
+    public static function expired() : self
     {
-        $detail = 'The ToDo you are looking for does not exist: ' . $coy;
+        $detail = sprintf(
+            'OTP Provided has expired'
+        );
         $e = new self($detail);
-        $e->status = 404;
+        $e->status = 410;
         $e->type   = self::TYPE;
-        $e->title  = 'To do not found';
+        $e->title  = 'OTP has expired';
         $e->detail = $detail;
 
         return $e;
     }
 
-    public static function invalid(string $detail): self
+    public static function wrong() : self
     {
+        $detail = sprintf(
+            'OTP Provided is incorrect',
+        );
         $e = new self($detail);
-        $e->status = 401;
+        $e->status = 409;
         $e->type   = self::TYPE;
-        $e->title  = 'Invalid To do';
+        $e->title  = 'OTP Provided is incorrect';
         $e->detail = $detail;
 
         return $e;

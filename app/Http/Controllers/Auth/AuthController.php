@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Exceptions\JwtException;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -36,11 +37,11 @@ class AuthController extends Controller
 
     public function register(RegistrationRequest $request)
     {
-        // try {
+        try {
             $user = User::create($request->validated());
-        // } catch (\Throwable $th) {
-        //     UserAuthException::duplicateEntry('This email is currently not available', 409);
-        // }
+        } catch (\Throwable $th) {
+            UserAuthException::invalid();
+        }
         if ($user) {
             $this->mailService->sendVerificationLink($user);
             $token = auth()->login($user);
@@ -48,7 +49,7 @@ class AuthController extends Controller
         }else {
             return response()->json([
                 'status' => 'Failed',
-                'message' => 'An error occured while trying to create user'
+                'message' => 'An error occurred while trying to create user'
             ], 500);
         }
     }
@@ -60,11 +61,9 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (! $token = auth()->attempt($request->validated())) {
-            return response()->json(
-                ['error' => 'Unauthorized', 
-                'message' => 'invalid credentials'], 401);
+            throw JwtException::invalid('invalid credentials');
         }
-        return $this->respondWithToken($token, auth()->user()); 
+        return $this->respondWithToken($token, auth()->user());
         // # If all credentials are correct - we are going to generate a new access token and send it back on response
     }
 
@@ -93,7 +92,7 @@ class AuthController extends Controller
     public function logout()
     {
         # This is just logout function that will destroy access token of current user
-        auth()->logout(); 
+        auth()->logout();
 
         return response()->json([
             'status' => true,
@@ -106,11 +105,11 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh()
+    public function refresh(User $user)
     {
-        # When access token will be expired, we are going to generate a new one wit this function 
+        # When access token will be expired, we are going to generate a new one wit this function
         # and return it here in response
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth()->refresh(), $user);
     }
 
     /**

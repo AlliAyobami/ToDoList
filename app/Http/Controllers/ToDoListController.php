@@ -24,14 +24,14 @@ class ToDoListController extends Controller
         $toDo = ToDoList::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
         return new JsonResponse ([$toDo], 201);
         } catch (\Throwable $th) {
-            return ToDoException::invalid();
+            return ToDoException::invalid('Invalid Request');
         }
     }
 
       /**
      * Get ToDoList created by user
      *
-     * 
+     *
      * @return JsonResponse
      */
     public function getUserToDoLists()
@@ -43,7 +43,7 @@ class ToDoListController extends Controller
             ->paginate(5);
         return new JsonResponse ([$userToDos], 201);
         } catch (\Throwable $th) {
-            return ToDoException::invalid();
+            return ToDoException::invalid('Invalid Request');
         }
     }
 
@@ -58,7 +58,7 @@ class ToDoListController extends Controller
         try {
         return new JsonResponse ($toDo, 201);
         } catch (\Throwable $th) {
-            return ToDoException::invalid();
+            return ToDoException::invalid('Invalid request');
         }
     }
 
@@ -74,7 +74,7 @@ class ToDoListController extends Controller
          $toDo->update($request->validated());
         return new JsonResponse ($toDo, 201);
         } catch (\Throwable $th) {
-            return ToDoException::invalid();
+            return ToDoException::invalid('Invalid request');
         }
     }
 
@@ -84,12 +84,12 @@ class ToDoListController extends Controller
      * @return JsonResponse
      */
     public function destroy(ToDoList $toDo)
-    { 
+    {
         try {
         $toDo->delete();
         return new JsonResponse ([], 201);
         } catch (\Throwable $th) {
-            return ToDoException::invalid();
+            return ToDoException::invalid('Invalid request');
         }
     }
 }
