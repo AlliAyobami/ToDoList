@@ -23,7 +23,22 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['string', 'required', 'email:filter'],
-            'password' => ['required', 'string']
+            'password' => ['required', 'string'],
+        ];
+    }
+
+    /**
+     * Set validation error messages that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Kindly fill the email field',
+            'email.string' => 'Invalid email',
+            'password.required' => 'Password is required',
+            'password.min:8' => 'Password must be at least 8 letters',
         ];
     }
 }

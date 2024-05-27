@@ -25,9 +25,9 @@ class ToDoUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-                'name' => ['string', 'nullable'],
-                'due_date' => ['date', 'nullable'],
-                'status' => [Rule::enum(Status::class), 'nullable']
+            'name' => ['string', 'nullable'],
+            'due_date' => ['date', 'nullable'],
+            'status' => [Rule::enum(Status::class), 'nullable'],
         ];
     }
 
@@ -42,7 +42,7 @@ class ToDoUpdateRequest extends FormRequest
             'name.required' => 'Kindly fill the To Do name field',
             'name.string' => 'Invalid name',
             'due_date.date' => 'Invalid date',
-            'status' => 'Invalid Status'
+            'status' => 'Invalid Status',
         ];
     }
 }

@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
-use App\Models\To_Do_List;
-
+use App\Models\ToDoList;
 
 class Task extends Model
 {
@@ -23,18 +22,19 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
-     /**
+    /**
      * Get the to_do_list that this task belongs to.
      */
-    public function to_do_list(): BelongsTo
+    public function toDoList(): BelongsTo
     {
-        return $this->belongsTo(To_Do_List::class);
+        return $this->belongsTo(ToDoList::class);
     }
 
     /**
      * Get the task due date.
      */
-    public function dueDate(){
+    public function dueDate()
+    {
         return $this->due_date;
-    } 
+    }
 }

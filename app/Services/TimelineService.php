@@ -8,11 +8,11 @@ use DateInterval;
 
 class TimelineService
 {
-  /**
-  * Calculate Task time interval
-  * @param Task
-  * @return DateInterval
-  */
+    /**
+     * Calculate Task time interval
+     * @param Task
+     * @return DateInterval
+     */
     public function calculateTaskProximity(Task $task): DateInterval
     {
         $currentDate = new DateTime('now');

@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 use Propaganistas\LaravelPhone\Rules\Phone;
-
 
 class RegistrationRequest extends FormRequest
 {
@@ -25,9 +25,17 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'name' => ['string', 'required', 'min:3'],
-            'email' => ['string', 'required', 'email:filter', 'unique:users'],
-            'phone' => "required|phone:NG",
-            'password' => ['required', 'min:8', 'confirmed']
+            'email' => ['unique:users', 'required', 'email:filter'],
+            'phone' => ['required', 'phone:NG'],
+            'password' => [
+                'required',
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised()
+                    ->rules('confirmed'),
+            ],
         ];
     }
 
@@ -42,10 +50,12 @@ class RegistrationRequest extends FormRequest
             'name.required' => 'Kindly fill the name field',
             'name.string' => 'Invalid name',
             'name.min:3' => 'Name must be at least 3 letters',
+            'email.unique' => 'Email already exist, want to try another one?',
+            'email.required' => 'Kindly fill in your email',
             'phone.required' => 'Kindly fill in your phone number',
             'phone' => 'Invalid phone number',
             'password.required' => 'Password is required',
-            'password.min:8' => 'Password must be at least 8 letters'
+            'password.min:8' => 'Password must be at least 8 letters',
         ];
     }
 }

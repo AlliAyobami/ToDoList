@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -10,8 +13,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "mezzio/mezzio-problem-details": "^1.14",
-        "propaganistas/laravel-phone": "^5.3",
-        "tymon/jwt-auth": "^2.1"
+        "php-open-source-saver/jwt-auth": "^2.3",
+        "propaganistas/laravel-phone": "^5.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -43,11 +46,9 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
-
         "test": [
             "./vendor/bin/phpunit"
         ],
-
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],

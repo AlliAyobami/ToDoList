@@ -27,7 +27,7 @@ class ToDoListRequest extends FormRequest
         return [
             'name' => ['string', 'required'],
             'due_date' => ['date'],
-            'status' => [Rule::enum(Status::class)]
+            'status' => [Rule::enum(Status::class)],
         ];
     }
 
@@ -42,7 +42,7 @@ class ToDoListRequest extends FormRequest
             'name.required' => 'Kindly fill the To Do name field',
             'name.string' => 'Invalid name',
             'due_date.date' => 'Invalid date',
-            'status' => 'Invalid Status'
+            'status' => 'Invalid Status',
         ];
     }
 }

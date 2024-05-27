@@ -29,7 +29,7 @@ class TaskRequest extends FormRequest
             'description' => ['string', 'required', 'max:30'],
             'due_date' => ['date'],
             'status' => [Rule::enum(Status::class)],
-            'priority' => [Rule::enum(Priority::class)]
+            'priority' => [Rule::enum(Priority::class)],
         ];
     }
 
@@ -44,7 +44,7 @@ class TaskRequest extends FormRequest
             'description.required' => 'Kindly fill the Task description field',
             'due_date.date' => 'Invalid date',
             'status' => 'Invalid Status',
-            'priority' => 'Invalid Priority'
+            'priority' => 'Invalid Priority',
         ];
     }
 }

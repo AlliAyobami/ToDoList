@@ -22,7 +22,6 @@ class TimelineNotification extends Notification
      */
     public function __construct()
     {
-        
     }
 
     /**
@@ -40,10 +39,10 @@ class TimelineNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage())
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -54,39 +53,37 @@ class TimelineNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
-    
     /**
      * Set notification determined by proximity
      *
-     * @return 
+     * @return
      */
     public function generateNotification(DateInterval $date): string
     {
+        $timestamps = $this->intervalToSeconds($date);
+        switch ($timestamps) {
+            case $timestamps >= 259200:
+                return 'Green Display';
+                break;
 
-       $timestamps = $this->intervalToSeconds($date);
-       switch ($timestamps) {
-        case $timestamps >= 259200:
-            return 'Green Display';
-            break;
+            case $timestamps >= 86400:
+                return 'Yellow Display';
+                break;
 
-        case $timestamps >= 86400:
-            return 'Yellow Display';
-            break;
-
-        case $timestamps <= 10800:
-            return 'Red Display';
-            break;
-       }
+            case $timestamps <= 10800:
+                return 'Red Display';
+                break;
+        }
     }
 
-    public function intervalToSeconds(DateInterval $interval) {
+    public function intervalToSeconds(DateInterval $interval)
+    {
         $setDate = new DateTime('@0');
         $setDate->add($interval);
         return $setDate->getTimestamp();
-      }
-
+    }
 }

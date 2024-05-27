@@ -29,7 +29,7 @@ class TaskUpdateRequest extends FormRequest
             'description' => ['string', 'nullable', 'max:30'],
             'due_date' => ['date', 'nullable'],
             'status' => [Rule::enum(Status::class), 'nullable'],
-            'priority' => [Rule::enum(Priority::class), 'nullable']
+            'priority' => [Rule::enum(Priority::class), 'nullable'],
         ];
     }
 
@@ -41,10 +41,11 @@ class TaskUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'description.string' => 'Kindly fill the appropriate characters for Task description',
+            'description.string' =>
+                'Kindly fill the appropriate characters for Task description',
             'due_date.date' => 'Invalid date',
             'status' => 'Invalid Status',
-            'priority' => 'Invalid Priority'
+            'priority' => 'Invalid Priority',
         ];
     }
 }

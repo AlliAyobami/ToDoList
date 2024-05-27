@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\JwtException;
 use Illuminate\Http\Request;
 use App\Http\Requests\ToDoListRequest;
 use App\Http\Requests\ToDoUpdateRequest;
@@ -18,33 +19,34 @@ class ToDoListController extends Controller
      * @param  ToDoListRequest  $request
      * @return JsonResponse
      */
-    public function store(ToDoListRequest $request)
+    public function create(ToDoListRequest $request)
     {
-        try {
-        $toDo = ToDoList::create(array_merge($request->validated(), ['user_id' => auth()->id()]));
-        return new JsonResponse ([$toDo], 201);
-        } catch (\Throwable $th) {
-            return ToDoException::invalid('Invalid Request');
-        }
+        $toDo = ToDoList::create(
+            array_merge($request->validated(), ['user_id' => auth()->id()])
+        );
+        return new JsonResponse([$toDo], 201);
     }
 
-      /**
+    /**
      * Get ToDoList created by user
      *
      *
      * @return JsonResponse
      */
+
     public function getUserToDoLists()
     {
-        try {
         $user_id = auth()->id();
-        $userToDos = ToDoList::query()
-            ->where('user_id', $user_id)
-            ->paginate(5);
-        return new JsonResponse ([$userToDos], 201);
-        } catch (\Throwable $th) {
-            return ToDoException::invalid('Invalid Request');
+        if ($user_id) {
+            $userToDos = ToDoList::query()
+                ->where('user_id', '=', $user_id)
+                ->paginate(5);
+            return response()->json([
+                'status' => 'success',
+                'data' => $userToDos,
+            ]);
         }
+        abort(401, 'Unauthorized access');
     }
 
     /**
@@ -56,9 +58,9 @@ class ToDoListController extends Controller
     public function show(ToDoList $toDo)
     {
         try {
-        return new JsonResponse ($toDo, 201);
+            return new JsonResponse($toDo, 200);
         } catch (\Throwable $th) {
-            return ToDoException::invalid('Invalid request');
+            throw ToDoException::invalid();
         }
     }
 
@@ -71,10 +73,10 @@ class ToDoListController extends Controller
     public function update(ToDoUpdateRequest $request, ToDoList $toDo)
     {
         try {
-         $toDo->update($request->validated());
-        return new JsonResponse ($toDo, 201);
+            $toDo->update($request->validated());
+            return new JsonResponse($toDo, 200);
         } catch (\Throwable $th) {
-            return ToDoException::invalid('Invalid request');
+            throw ToDoException::invalid();
         }
     }
 
@@ -86,10 +88,10 @@ class ToDoListController extends Controller
     public function destroy(ToDoList $toDo)
     {
         try {
-        $toDo->delete();
-        return new JsonResponse ([], 201);
+            $toDo->delete();
+            return new JsonResponse([], 200);
         } catch (\Throwable $th) {
-            return ToDoException::invalid('Invalid request');
+            throw ToDoException::invalid();
         }
     }
 }

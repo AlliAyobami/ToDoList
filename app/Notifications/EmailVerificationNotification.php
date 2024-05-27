@@ -36,12 +36,14 @@ class EmailVerificationNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
-                    ->subject('Email Verification')
-                    ->line("Dear $notifiable->name")
-                    ->line('Welcome! Verify your email to unlock your account. Thanks, The MTN Team.')
-                    ->action('Click the Verification Link', $this->url)
-                    ->line('Thank you for using our application!');
+        return (new MailMessage())
+            ->subject('Email Verification')
+            ->line("Dear $notifiable->name")
+            ->line(
+                'Welcome! Verify your email to unlock your account. Thanks, The MTN Team.'
+            )
+            ->action('Click the Verification Link', $this->url)
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -52,7 +54,7 @@ class EmailVerificationNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 }

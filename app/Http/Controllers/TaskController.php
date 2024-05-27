@@ -23,19 +23,27 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request, ToDoList $toDo)
     {
-        if ($toDo){
-        $task = Task::create(array_merge($request->validated(),
-        ['user_id' => auth()->id()], ['to_do_list_id' => $toDo->id]));
-        return new JsonResponse ([$task], 201);
+        if ($toDo) {
+            $task = Task::create(
+                array_merge(
+                    $request->validated(),
+                    ['user_id' => auth()->id()],
+                    ['to_do_list_id' => $toDo->id]
+                )
+            );
+            return new JsonResponse([$task], 201);
+        } else {
+            return response()->json(
+                [
+                    'status' => 'Failed',
+                    'message' =>
+                        'An error occurred while trying to create Task',
+                ],
+                400
+            );
         }
-        else {
-            return response()->json([
-                'status' => 'Failed',
-                'message' => 'An error occurred while trying to create Task'
-            ], 400);
     }
-    }
-      /**
+    /**
      * Get ToDo List Tasks
      *
      *
@@ -44,12 +52,12 @@ class TaskController extends Controller
     public function getToDoListTasks(string $id)
     {
         try {
-        $tasks = Task::query()
-        ->where('to_do_list_id', $id)
-        ->paginate(5);
-        return new JsonResponse ($tasks, 201);
+            $tasks = Task::query()
+                ->where('to_do_list_id', $id)
+                ->paginate(5);
+            return new JsonResponse($tasks, 200);
         } catch (\Throwable $th) {
-            return TaskException::invalid('Invalid request');
+            throw TaskException::invalid('Invalid request');
         }
     }
 
@@ -62,9 +70,9 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         try {
-        return new JsonResponse ($task, 201);
+            return new JsonResponse($task, 200);
         } catch (\Throwable $th) {
-            return TaskException::invalid('Invalid request');
+            throw TaskException::invalid('Invalid request');
         }
     }
 
@@ -76,16 +84,19 @@ class TaskController extends Controller
      */
     public function update(TaskUpdateRequest $request, Task $task)
     {
-        if ($task){
+        if ($task) {
             $task->update($request->validated());
-            return new JsonResponse ([$task], 201);
-            }
-            else {
-                return response()->json([
+            return new JsonResponse([$task], 200);
+        } else {
+            return response()->json(
+                [
                     'status' => 'Failed',
-                    'message' => 'An error occurred while trying to create Task'
-                ], 400);
-    }
+                    'message' =>
+                        'An error occurred while trying to create Task',
+                ],
+                400
+            );
+        }
     }
     /**
      * Delete a Task by Id
@@ -95,10 +106,10 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         try {
-        $task->delete();
-        return new JsonResponse ([], 201);
+            $task->delete();
+            return new JsonResponse([], 201);
         } catch (\Throwable $th) {
-            return TaskException::invalid('Invalid request');
+            throw TaskException::invalid('Invalid request');
         }
     }
 
@@ -110,16 +121,18 @@ class TaskController extends Controller
     public function timeline(
         TimelineService $timelineService,
         TimelineNotification $timelineNotification,
-        Task $task)
-    {
+        Task $task
+    ) {
         try {
-        if ($task) {
-           $interval = $timelineService->calculateTaskProximity($task);
-           $notification = $timelineNotification->generateNotification($interval);
-           return new JsonResponse (['data' => $notification], 201);
-        }
+            if ($task) {
+                $interval = $timelineService->calculateTaskProximity($task);
+                $notification = $timelineNotification->generateNotification(
+                    $interval
+                );
+                return new JsonResponse(['data' => $notification]);
+            }
         } catch (\Throwable $th) {
-            return TaskException::invalid('Invalid request');
+            throw TaskException::invalid('Invalid request');
         }
     }
 }
