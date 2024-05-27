@@ -57,6 +57,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request, JwtService $jwt)
     {
         try {
+            $jwt->isVerifiedUser($request->validated());
             return $jwt->verifyLoginCredentials($request->validated());
         } catch (\Exception $exception) {
             abort(400, $exception->getMessage());

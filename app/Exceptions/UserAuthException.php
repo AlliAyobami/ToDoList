@@ -37,4 +37,18 @@ class UserAuthException extends DomainException implements
 
         return $e;
     }
+
+    public static function notVerified(): self
+    {
+        $detail = sprintf(
+            'Account not Verified Yet, kindly verify with the link sent to your email'
+        );
+        $e = new self($detail);
+        $e->status = 404;
+        $e->type = self::TYPE;
+        $e->title = 'Account not verified';
+        $e->detail = $detail;
+
+        return $e;
+    }
 }

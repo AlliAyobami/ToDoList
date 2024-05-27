@@ -117,7 +117,7 @@ class EmailVerificationService
         $verifiedUser = $this->verifyEmail($credentials['email']);
         $verifiedToken = $this->verifyToken($credentials['token']);
         if ($verifiedToken) {
-            $newToken = $jwt->createToken($verifiedUser);
+            $newToken = $jwt->createToken($verifiedUser, 'verification successful');
             return response()
                 ->json([
                     'verifiedUser' => $verifiedUser,

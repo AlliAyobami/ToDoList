@@ -46,6 +46,18 @@ class JwtService
     }
 
     /**
+     * verify user credential and return either token or an unauthorized error
+     * @param array
+     */
+    public function isVerifiedUser(array $credentials)
+    {
+        $user = User::where('email', $credentials['email'])->first();
+        if (!$user || !$user->email_verified_at) {
+            throw UserAuthException::notVerified();
+        }
+    }
+
+    /**
      * Get user token
      * @param User
      * @return \Illuminate\Http\JsonResponse
