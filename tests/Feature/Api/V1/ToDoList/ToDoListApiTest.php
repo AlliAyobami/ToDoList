@@ -11,15 +11,31 @@ use Tests\TestCase;
 
 class ToDoListApiTest extends TestCase
 {
-    /**
-     * Index Test
-     */
-    public function test_index(): void
+    use RefreshDatabase;
+    public function test_create_to_do_list(): void
     {
         $user = User::factory()->create();
+        $response = $this->actingAs($user, 'api')->json(
+            'post',
+            'api/v1/todo/create'
+        );
         $toDoList = ToDoList::factory()->create();
-        $response = $this->actingAs($user, 'api')->json('get', 'api/v1/todo/user/list');
         $response->assertStatus(201);
         dump($response->json());
     }
+
+    // /**
+    //  * Index Test
+    //  */
+    // public function test_index(): void
+    // {
+    //     // $user = User::factory()->create();
+    //     $response = $this->actingAs($user, 'api')->json(
+    //         'get',
+    //         'api/v1/todo/user/list'
+    //     );
+    //     // $toDoList = ToDoList::factory()->create();
+    //     $response->assertStatus(201);
+    //     dump($response->json());
+    // }
 }

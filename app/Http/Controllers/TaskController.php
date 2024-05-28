@@ -23,11 +23,12 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request, ToDoList $toDo)
     {
-        if ($toDo) {
+        $user_id = auth()->id();
+        if ($toDo && $toDo->user_id == $user_id) {
             $task = Task::create(
                 array_merge(
                     $request->validated(),
-                    ['user_id' => auth()->id()],
+                    [$user_id],
                     ['to_do_list_id' => $toDo->id]
                 )
             );
