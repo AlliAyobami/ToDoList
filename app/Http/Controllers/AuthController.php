@@ -40,13 +40,13 @@ class AuthController extends Controller
         JwtService $jwt
     ) {
         try {
-            $user = User::create($request->validated());
-            if ($user) {
+            if ($request->validated()) {
+               $user = User::create($request->validated());
                $mailService->sendVerificationLink($user);
-               return $jwt->createToken($user);
+               return $jwt->createToken($user, 'success');
             }
         } catch (\Throwable $th) {
-            UserAuthException::invalid();
+           throw UserAuthException::invalid();
         }
     }
     /**
